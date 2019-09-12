@@ -1,0 +1,455 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>Dream!ing Pair Sorter</title>
+<script type="text/javascript">
+<!--
+//*********************************************************
+//
+// 評価するメンバーの名前のリスト
+//
+// この部分を変更して下さい。名前の削除?追加も可能です。
+// 名前を引用符(")で括り、コンマ(,)で区切って下さい。
+// 但し、リストの最後にはコンマを入れてはいけません。
+//
+//*********************************************************
+var namMember = new Array(
+
+"はじめての東京人（望月悠馬＆花房柳）",
+"特進生落ちこぼれ組（望月悠馬＆新兎千里）",
+"大切な事は映画から（望月悠馬＆獅子丸孝臣）",
+"江戸もんとかごっま（望月悠馬＆針宮藤次）",
+"東京のお姉さま（望月悠馬＆三毛門紫音）",
+"人生を変える言葉（望月悠馬＆虎澤一生）",
+"裸眼で生きたい（望月悠馬＆浅霧巳影）",
+"お兄さんといっしょ（望月悠馬＆柴咲真也）",
+"これぞダークヒーロー（望月悠馬＆白華時雨）",
+"異文化交流（望月悠馬＆竜ヶ崎仁）",
+"ノブレスオブリージュ（望月悠馬＆槙千鶴）",
+"愛憎のもつれ（望月悠馬＆志部谷幽）",
+"やさしいことば講座（望月悠馬＆牛若湊）",
+"ヒーローの日常（望月悠馬＆久磨凛太朗）",
+"おえかきタイム（望月悠馬＆ビアンキ由仁）",
+"その嘘とどまり知らず（花房柳＆新兎千里）",
+"風呂上りの一杯（花房柳＆獅子丸孝臣）",
+"深夜の色恋専攻（花房柳＆針宮藤次）",
+"物憂げなため息（花房柳＆三毛門紫音）",
+"やさしさの相違（花房柳＆虎澤一生）",
+"スリルギャンブラー（花房柳＆浅霧巳影）",
+"暗黒物質錬成シェフ（花房柳＆柴咲真也）",
+"処す禁欲ノ刑（花房柳＆白華時雨）",
+"脱黒その後（花房柳＆竜ヶ崎仁）",
+"裏切り者には…（花房柳＆槙千鶴）",
+"もう愛は帰らない（花房柳＆志部谷幽）",
+"甘々フェイスにご用心（花房柳＆牛若湊）",
+"ワールドワイド·モテ（花房柳＆久磨凛太朗）",
+"ギリギリ不健全（花房柳＆ビアンキ由仁）",
+"混ぜるな危険（新兎千里＆獅子丸孝臣）",
+"教えて！庶民の暮らし（新兎千里＆針宮藤次）",
+"苺ショートケーキ（新兎千里＆三毛門紫音）",
+"アツイ役者魂（新兎千里＆虎澤一生）",
+"ガチャ中毒（新兎千里＆浅霧巳影）",
+"極上漫才（新兎千里＆柴咲真也）",
+"ドキドキ噓八百（新兎千里＆白華時雨）",
+"大ザメ小バンザメ（新兎千里＆竜ヶ崎仁）",
+"魅惑の庶民味（新兎千里＆槙千鶴）",
+"隣人トラブル（新兎千里＆志部谷幽）",
+"ただしイケメンに…（新兎千里＆牛若湊）",
+"久磨ジム所属ごっこ（新兎千里＆久磨凛太朗）",
+"にこにこうさぎ組み（新兎千里＆ビアンキ由仁）",
+"入試満点ズ（獅子丸孝臣＆針宮藤次）",
+"少年キラーの秘香（獅子丸孝臣＆三毛門紫音）",
+"時代を超えた城攻め（獅子丸孝臣＆虎澤一生）",
+"深夜のチェスサークル（獅子丸孝臣＆浅霧巳影）",
+"柴咲スポーツクラブ員（獅子丸孝臣＆柴咲真也）",
+"伝説を知る者（獅子丸孝臣＆白華時雨）",
+"懐かない子ライオン（獅子丸孝臣＆竜ヶ崎仁）",
+"ポテチ俱楽部（獅子丸孝臣＆槙千鶴）",
+"口うるさ系野郎共（獅子丸孝臣＆志部谷幽）",
+"顔面おねだり効果ナシ（獅子丸孝臣＆牛若湊）",
+"アゲアゲサゲサゲ（獅子丸孝臣＆久磨凛太朗）",
+"書きづらい譜面台（獅子丸孝臣＆ビアンキ由仁）",
+"よく踊るオモチャ（針宮藤次＆三毛門紫音）",
+"大和男児（針宮藤次＆虎澤一生）",
+"勝手に恋敵！？（針宮藤次＆浅霧巳影）",
+"集中力バカ（針宮藤次＆柴咲真也）",
+"クラシックのお時間（針宮藤次＆白華時雨）",
+"日本のミライ（針宮藤次＆竜ヶ崎仁）",
+"袖の下の茶葉（針宮藤次＆槙千鶴）",
+"同じ滝に打たれし者（針宮藤次＆志部谷幽）",
+"自立のすゝめ（針宮藤次＆牛若湊）",
+"カリスマリーダー道場（針宮藤次＆久磨凛太朗）",
+"その質問、無垢ゆえに（針宮藤次＆ビアンキ由仁）",
+"おせっかいパパ（三毛門紫音＆虎澤一生）",
+"にゃんにゃん仲間（三毛門紫音＆浅霧巳影）",
+"少女漫画？（三毛門紫音＆柴咲真也）",
+"クールビューティー（三毛門紫音＆白華時雨）",
+"昆虫根絶（三毛門紫音＆竜ヶ崎仁）",
+"目の上のマドンナ（三毛門紫音＆槙千鶴）",
+"美髪の秘訣（三毛門紫音＆志部谷幽）",
+"つれないマドンナ（三毛門紫音＆牛若湊）",
+"トレンドクリエーター（三毛門紫音＆久磨凛太朗）",
+"不可侵サンクチュアリ（三毛門紫音＆ビアンキ由仁）",
+"おひさまと月（虎澤一生＆浅霧巳影）",
+"爽やかヒーロー王子（虎澤一生＆柴咲真也）",
+"ノーニード·スイーツ（虎澤一生＆白華時雨）",
+"竜虎の争い（虎澤一生＆竜ヶ崎仁）",
+"おいしいよ棒の架け橋（虎澤一生＆槙千鶴）",
+"お分かりだろうか…（虎澤一生＆志部谷幽）",
+"ふれあい牧場（虎澤一生＆牛若湊）",
+"人生の師（虎澤一生＆久磨凛太朗）",
+"末っ子びいきパパ（虎澤一生＆ビアンキ由仁）",
+"よい子わるい子（浅霧巳影＆柴咲真也）",
+"凸凹生徒会（浅霧巳影＆白華時雨）",
+"金は天下の回り物（浅霧巳影＆竜ヶ崎仁）",
+"心の悪友（浅霧巳影＆槙千鶴）",
+"恐怖の廃墟マニア（浅霧巳影＆志部谷幽）",
+"全てが宙ぶらりん（浅霧巳影＆牛若湊）",
+"騒音タンデム（浅霧巳影＆久磨凛太朗）",
+"キャンディーフレンズ（浅霧巳影＆ビアンキ由仁）",
+"心腹の友（柴咲真也＆白華時雨）",
+"究極オレ様王子（柴咲真也＆竜ヶ崎仁）",
+"北風と太陽（柴咲真也＆槙千鶴）",
+"血色コントラスト（柴咲真也＆志部谷幽）",
+"最低8時間睡眠（柴咲真也＆牛若湊）",
+"ウキウキさんと助手（柴咲真也＆久磨凛太朗）",
+"Famのキーパーソン（柴咲真也＆ビアンキ由仁）",
+"孤高のドンｓ（白華時雨＆竜ヶ崎仁）",
+"終わりなき心理戦（白華時雨＆槙千鶴）",
+"黒闇に生きし者たち（白華時雨＆志部谷幽）",
+"手なずけ上手（白華時雨＆牛若湊）",
+"あうんの呼吸（白華時雨＆久磨凛太朗）",
+"純潔のソナタ（白華時雨＆ビアンキ由仁）",
+"キング＆クイーン（竜ヶ崎仁＆槙千鶴）",
+"覇者オーラに消える（竜ヶ崎仁＆志部谷幽）",
+"竜王Co.影の企画屋（竜ヶ崎仁＆牛若湊）",
+"待ち合わせは世界遺産（竜ヶ崎仁＆久磨凛太朗）",
+"大きな譜面台（竜ヶ崎仁＆ビアンキ由仁）",
+"おどしとすかし（槙千鶴＆志部谷幽）",
+"牛に経文（槙千鶴＆牛若湊）",
+"その悪口いいね！（槙千鶴＆久磨凛太朗）",
+"ことばの銃撃戦（槙千鶴＆ビアンキ由仁）",
+"ちぐはぐマイペース組（志部谷幽＆牛若湊）",
+"ファッションおばけ（志部谷幽＆久磨凛太朗）",
+"これも情操教育（志部谷幽＆ビアンキ由仁）",
+"久磨✩ダンスClub（牛若湊＆久磨凛太朗）",
+"寝る子は育つ（牛若湊＆ビアンキ由仁）",
+"合言葉はチャオ（久磨凛太朗＆ビアンキ由仁）",
+
+);
+//*********************************************************
+
+var lstMember = new Array();
+var parent = new Array();
+var equal = new Array();
+var rec = new Array();
+var cmp1,cmp2;
+var head1,head2;
+var nrec;
+
+var numQuestion;
+var totalSize;
+var finishSize;
+var finishFlag;
+
+//変数の初期化+++++++++++++++++++++++++++++++++++++++++++++
+function initList(){
+	var n = 0;
+	var mid;
+	var i;
+
+	//ソートすべき配列
+	lstMember[n] = new Array();
+	for (i=0; i<namMember.length; i++) {
+		lstMember[n][i] = i;
+	}
+	parent[n] = -1;
+	totalSize = 0;
+	n++;
+
+	for (i=0; i<lstMember.length; i++) {
+		//要素数が２以上なら２分割し、
+		//分割された配列をlstMemberの最後に加える
+		if(lstMember[i].length>=2) {
+			mid = Math.ceil(lstMember[i].length/2);
+			lstMember[n] = new Array();
+			lstMember[n] = lstMember[i].slice(0,mid);
+			totalSize += lstMember[n].length;
+			parent[n] = i;
+			n++;
+			lstMember[n] = new Array();
+			lstMember[n] = lstMember[i].slice(mid,lstMember[i].length);
+			totalSize += lstMember[n].length;
+			parent[n] = i;
+			n++;
+		}
+	}
+
+	//保存用配列
+	for (i=0; i<namMember.length; i++) {
+		rec[i] = 0;
+	}
+	nrec = 0;
+
+	//引き分けの結果を保存するリスト
+	//キー：リンク始点の値
+	// 値 ：リンク終点の値
+	for (i=0; i<=namMember.length; i++) {
+		equal[i] = -1;
+	}
+
+	cmp1 = lstMember.length-2;
+	cmp2 = lstMember.length-1;
+	head1 = 0;
+	head2 = 0;
+	numQuestion = 1;
+	finishSize = 0;
+	finishFlag = 0;
+}
+
+//リストのソート+++++++++++++++++++++++++++++++++++++++++++
+//flag：比較結果
+//  -1：左を選択
+//   0：引き分け
+//   1：右を選択
+function sortList(flag){
+	var i;
+	var str;
+
+	//recに保存
+	if (flag<0) {
+		rec[nrec] = lstMember[cmp1][head1];
+		head1++;
+		nrec++;
+		finishSize++;
+		while (equal[rec[nrec-1]]!=-1) {
+			rec[nrec] = lstMember[cmp1][head1];
+			head1++;
+			nrec++;
+			finishSize++;
+		}
+	}
+	else if (flag>0) {
+		rec[nrec] = lstMember[cmp2][head2];
+		head2++;
+		nrec++;
+		finishSize++;
+		while (equal[rec[nrec-1]]!=-1) {
+			rec[nrec] = lstMember[cmp2][head2];
+			head2++;
+			nrec++;
+			finishSize++;
+		}
+	}
+	else {
+		rec[nrec] = lstMember[cmp1][head1];
+		head1++;
+		nrec++;
+		finishSize++;
+		while (equal[rec[nrec-1]]!=-1) {
+			rec[nrec] = lstMember[cmp1][head1];
+			head1++;
+			nrec++;
+			finishSize++;
+		}
+		equal[rec[nrec-1]] = lstMember[cmp2][head2];
+		rec[nrec] = lstMember[cmp2][head2];
+		head2++;
+		nrec++;
+		finishSize++;
+		while (equal[rec[nrec-1]]!=-1) {
+			rec[nrec] = lstMember[cmp2][head2];
+			head2++;
+			nrec++;
+			finishSize++;
+		}
+	}
+
+	//片方のリストを走査し終えた後の処理
+	if (head1<lstMember[cmp1].length && head2==lstMember[cmp2].length) {
+		//リストcmp2が走査済 - リストcmp1の残りをコピー
+		while (head1<lstMember[cmp1].length){
+			rec[nrec] = lstMember[cmp1][head1];
+			head1++;
+			nrec++;
+			finishSize++;
+		}
+	}
+	else if (head1==lstMember[cmp1].length && head2<lstMember[cmp2].length) {
+		//リストcmp1が走査済 - リストcmp2の残りをコピー
+		while (head2<lstMember[cmp2].length){
+			rec[nrec] = lstMember[cmp2][head2];
+			head2++;
+			nrec++;
+			finishSize++;
+		}
+	}
+
+	//両方のリストの最後に到達した場合は
+	//親リストを更新する
+	if (head1==lstMember[cmp1].length && head2==lstMember[cmp2].length) {
+		for (i=0; i<lstMember[cmp1].length+lstMember[cmp2].length; i++) {
+			lstMember[parent[cmp1]][i] = rec[i];
+		}
+		lstMember.pop();
+		lstMember.pop();
+		cmp1 = cmp1-2;
+		cmp2 = cmp2-2;
+		head1 = 0;
+		head2 = 0;
+
+		//新しい比較を行う前にrecを初期化
+		if (head1==0 && head2==0) {
+			for (i=0; i<namMember.length; i++) {
+				rec[i] = 0;
+			}
+			nrec = 0;
+		}
+	}
+
+	if (cmp1<0) {
+		str = "Battle No."+(numQuestion-1)+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+		document.getElementById("battleNumber").innerHTML = str;
+
+		showResult();
+		finishFlag = 1;
+	}
+	else {
+		showImage();
+	}
+}
+
+//結果の表示+++++++++++++++++++++++++++++++++++++++++++++++
+function showResult() {
+	var ranking = 1;
+	var sameRank = 1;
+	var str = "";
+	var i;
+
+	str += "<table style=\"width:200px; font-size:12px; line-height:120%; margin-left:auto; margin-right:auto; border:1px solid #000; border-collapse:collapse\" align=\"center\">";
+	str += "<tr><td style=\"color:#ffffff; background-color:#000; text-align:center;\">Rank<\/td><td style=\"color:#ffffff; background-color:#000; text-align:center;\">Name<\/td><\/tr>";
+
+	for (i=0; i<namMember.length; i++) {
+		str += "<tr><td style=\"border:1px solid #000; text-align:right; padding-right:5px;\">"+ranking+"<\/td><td style=\"border:1px solid #000; padding-left:5px;\">"+namMember[lstMember[0][i]]+"<\/td><\/tr>";
+		if (i<namMember.length-1) {
+			if (equal[lstMember[0][i]]==lstMember[0][i+1]) {
+				sameRank++;
+			} else {
+				ranking += sameRank;
+				sameRank = 1;
+			}
+		}
+	}
+	str += "<\/table>";
+
+	document.getElementById("resultField").innerHTML = str;
+}
+
+//比較する２つ要素の表示+++++++++++++++++++++++++++++++++++
+function showImage() {
+	var str0 = "Battle No."+numQuestion+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+	var str1 = ""+toNameFace(lstMember[cmp1][head1]);
+	var str2 = ""+toNameFace(lstMember[cmp2][head2]);
+
+	document.getElementById("battleNumber").innerHTML = str0;
+	document.getElementById("leftField").innerHTML = str1;
+	document.getElementById("rightField").innerHTML = str2;
+
+	numQuestion++;
+}
+
+//数値を名前（顔文字）に変換+++++++++++++++++++++++++++++++
+function toNameFace(n){
+	var str = namMember[n];
+
+	//顔文字を追加する場合は以下のコメントアウトを外す
+	//namMemberのインデックスと矛盾しないように注意
+	/*
+	str += "<br>────<br>";
+	switch(n) {
+		//case -1 はサンプルなので削除すること
+		case -1: str+="（ ′?｀）";break;
+		default: str+=""+n;
+	}
+	*/
+	return str;
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+/**********************************************************
+
+ 表のスタイルを変更する場合はここを編集してください。
+
+**********************************************************/
+#mainTable{
+	font-size: 16px;
+	font-family: 'ＭＳ Ｐゴシック',sans-serif;
+	text-align: center;
+	vertical-align: middle;
+	width: 610px;
+	margin-left: auto;
+	margin-right: auto;
+	border-collapse: separate;
+	border-spacing: 10px 5px;
+}
+#leftField{
+	width: 220px;
+	height: 150px;
+	border: 1px solid #000;
+}
+#rightField{
+	width: 220px;
+	height: 150px;
+	border: 1px solid #000;
+}
+.middleField{
+	width: 120px;
+	height: 70px;
+	border: 1px solid #000;
+}
+#leftField, #rightField, .middleField {
+  cursor: pointer;
+}
+//-->
+</style>
+</head>
+
+<body>
+<table id="mainTable" align="center">
+	<tbody><tr>
+		<td id="battleNumber" colspan="3" style="padding-bottom: 10px;">Battle No.1<br>0% sorted.</td>
+	</tr>
+	<tr>
+		<td id="leftField" onclick="if(finishFlag==0)sortList(-1);" rowspan="2">-</td>
+		<td class="middleField" onclick="if(finishFlag==0)sortList(0);">
+			引き分け
+		</td>
+		<td id="rightField" onclick="if(finishFlag==0)sortList(1);" rowspan="2">-</td>
+	</tr>
+	<tr>
+		<td class="middleField" onclick="if(finishFlag==0)sortList(0);">
+			どうでもいい
+		</td>
+	</tr>
+</tbody></table><br><br>
+<div id="resultField" style="text-align:center;">
+Pair sorter for Dream!ing. Just click the one you prefer.<br>
+There are 120 pairs in total, so you may have to make up to 600+ choices.<br>
+First version uploaded on September 12th.<br>
+<br>
+The source code is from: http://inaina.ina-ka.com/jojo.html<br>
+
+</div>
+<script type="text/javascript">
+<!--
+	initList();
+	showImage();
+//-->
+</script>
+
+</body></html>
